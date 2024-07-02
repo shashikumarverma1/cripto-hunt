@@ -3,6 +3,8 @@ import { Dashboard, Login, Signup } from '../screens';
 import { Profile } from '../screens/profile';
 import Pay from '../screens/paymentScreen';
 import { Notification } from '../screens/notification';
+import { AllCoins } from '../screens/AllCoins';
+import { Watchlisted } from '../screens/Watchlist';
 
 
 
@@ -11,7 +13,7 @@ const Stack = createStackNavigator();
 function RootStack() {
   return (
     <Stack.Navigator screenOptions={{ animationEnabled: false, headerShown: false }}>
-       <Stack.Screen name="Home" component={Dashboard} />
+       <Stack.Screen name="Home" component={AllCoins} />
        <Stack.Screen name="Pay" component={Pay} />
        <Stack.Screen name="Notification" component={Notification} />
        {/*  */}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   TextInput,
@@ -13,116 +13,97 @@ import { ScrollView } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { WatchlistInfo } from "../context/watchlistData";
 const windowWidth = Dimensions.get("window").width;
 
-export const CoinCard = () => {
-  const handleLogin = () => {};
+export const CoinCard = (data) => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState("");
-  const [coins, setCoins] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
-  const [currency, setCurrency] = useState("");
+
   const windowWidth = Dimensions.get("window").width;
-  // import { CoinList } from "../utils/apis";
-  const fetchCoins = async () => {
-    // setLoading(true);
-    const res = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${"btc"}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
-    );
-    console.log(res.data[0]);
-
-    setCoins(res.data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchCoins();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currency]);
+  const { watchlist, setWatchlist } = useContext(WatchlistInfo);
+  console.log(watchlist , "wwwwwwwwwww");
+  const IsWatchlisted=(e)=>{
+return watchlist?.filter((el)=>el.id==e.id)
+  }
+  useEffect(()=>{} ,[watchlist?.length])
   return (
-    <ScrollView>
-      {coins?.map((e, index) => {
+    <ScrollView style={{marginBottom:80}}>
+      {data?.data?.map((e, index) => {
         return (
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            key={index}
-          >
-            <Pressable
-            //    onPress={()=>navigation.navigate("JobDetails")}
-            >
-              <View
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: 8,
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 1.84,
-                  elevation: 5, // This is for Android
-                  padding: 15,
-                  margin: 5,
-                  width: windowWidth / 1.07,
-                  maxWidth: windowWidth / 1.07,
-                }}
-              >
+          <View style={styles.center} key={index}>
+            <Pressable>
+              <View style={styles.cardShadow}>
                 <View
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    backgroundColor: "aqua",
-                    alignItems:"center"
+
+                    alignItems: "center",
                   }}
                 >
                   <View>
-                    <View
-                      style={{
-                      paddingRight:5
-
-                      }}
-                    >
+                    <View style={styles.leftSection}>
                       <Image
-                        style={{ width: 30, height: 30 }}
+                        style={{ width: 35, height: 35 }}
                         source={{
                           uri: e?.image,
                         }}
                       />
                     </View>
                   </View>
-                  <View style={{}}>
-                    <View
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        flexDirection: "row",
-                        backgroundColor: "red",
-                        width: windowWidth * 0.76,
-                      }}
-                    >
-                      <Text>{e.id}</Text>
-                      <Text>{e.id}</Text>
-                      <Text>{e.id}</Text>
+                  <View style={styles.rightSection}>
+                    <View style={styles.sectionWidth}>
+                      <Text style={[styles.text]}>
+                        {e.symbol.toLocaleUpperCase()}
+                      </Text>
+                      <Text style={styles.text}>{e.name.slice(0, 10)}</Text>
                     </View>
-                    <View
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        flexDirection: "row",
-                        backgroundColor: "red",
-                        width: windowWidth * 0.76,
-                      }}
-                    >
-                      <Text>{e.id}</Text>
-                      <Text>{e.id}</Text>
-                      <Text>{e.id}</Text>
+
+                    <View style={styles.sectionWidth}>
+                      <Text style={styles.text}>
+                        {e.current_price.toFixed(2)}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.text,
+                          {
+                            color:
+                              e.price_change_percentage_24h.toFixed(2) < 0
+                                ? "red"
+                                : "green",
+                            paddingRight: 10,
+                            textAlign: "center",
+                          },
+                        ]}
+                      >
+                        {e.price_change_percentage_24h.toFixed(2)}%
+                      </Text>
+                    </View>
+                    <View style={styles.sectionWidth}>
+                      <Pressable onPress={()=>{
+                       let isWatchlisted= IsWatchlisted(e)
+                       console.log(isWatchlisted , "isWatchlisted")
+                        if(isWatchlisted?.length !== 0){
+                           let ans=   watchlist.filter((el)=>el.id !=e.id)
+                           setWatchlist(ans)
+                        }else{
+                          let arr=[...watchlist , e]
+                          setWatchlist(arr)
+                        }
+                       
+                      }}>
+                        <Text style={styles.text}>
+                          <Ionicons
+                            name={IsWatchlisted(e).length > 0  ? "heart" : "heart-outline"}
+                            size={25}
+                            color={IsWatchlisted(e).length > 0  ? "red" : "grey"}
+                          />
+                        </Text>
+                      </Pressable>
+
+                      <Text style={styles.text}>
+                        {e.market_cap.toString().slice(0, -6)}M
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -141,16 +122,49 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
-  label: {
-    marginBottom: 5,
+  cardShadow: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 1.84,
+    elevation: 5, // This is for Android
+    padding: 15,
+    margin: 5,
+    width: windowWidth / 1.07,
+    maxWidth: windowWidth / 1.07,
   },
-  input: {
-    width: "100%",
-    height: 40,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 20,
+  sectionWidth: {
+    width: windowWidth * 0.22,
+  },
+  leftSection: {
+    paddingRight: 5,
+    width: windowWidth * 0.1,
+  },
+  rightSection: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: windowWidth * 0.79,
+    // backgroundColor:"red"
+  },
+  center: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    color: "grey",
+    fontSize: 15,
+    fontWeight: "500",
+    marginBottom: 5,
+    marginTop: 5,
+    textAlign: "center",
   },
 });

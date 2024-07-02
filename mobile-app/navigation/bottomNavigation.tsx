@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import RootStack from "./rootStack";
 import { JobDetails } from "../components/JobDetails";
 import { Profile } from "../screens/profile";
+import { Watchlisted } from "../screens/Watchlist";
 
 // import RootStack from "./rootStack";
 const Tab = createBottomTabNavigator();
@@ -28,7 +29,7 @@ function BottomTabs() {
             iconName = focused ? "newspaper" : "newspaper-outline";
           } else if (route.name === "Menu") {
             iconName = focused ? "menu" : "menu-outline";
-          } else if (route.name === "Profile") {
+          } else if (route.name === "Watchlist") {
             iconName = focused ? "person-circle-outline" : "person-circle";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -52,8 +53,8 @@ function BottomTabs() {
       />
    
         <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Watchlist"
+        component={Watchlisted}
         // listeners={() => ({
         //   tabPress: (e) => {
         //     e.preventDefault();
