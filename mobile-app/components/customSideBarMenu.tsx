@@ -59,6 +59,46 @@ const CustomSidebarMenu = ({ navigation }: { navigation: any }) => {
         <Pressable
           style={styles.button}
           onPress={() => {
+            navigation.navigate("AllCoins");
+          }}
+        >
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Text style={styles.icon}>
+              <Ionicons name="person-circle" size={20} color="black" />
+            </Text>
+            <Text style={styles.heading}>All coins</Text>
+          </View>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Watchlisted");
+          }}
+        >
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Text style={styles.icon}>
+              <Ionicons name="person-circle" size={20} color="black" />
+            </Text>
+            <Text style={styles.heading}>Watch list</Text>
+          </View>
+          
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("TrendingCoin");
+          }}
+        >
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Text style={styles.icon}>
+              <Ionicons name="person-circle" size={20} color="black" />
+            </Text>
+            <Text style={styles.heading}>Trending Coin</Text>
+          </View>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => {
             navigation.navigate("Profile");
           }}
         >

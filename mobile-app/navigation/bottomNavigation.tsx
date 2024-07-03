@@ -30,7 +30,7 @@ function BottomTabs() {
           } else if (route.name === "Menu") {
             iconName = focused ? "menu" : "menu-outline";
           } else if (route.name === "Watchlist") {
-            iconName = focused ? "person-circle-outline" : "person-circle";
+            iconName = focused ? "star" : "star-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },

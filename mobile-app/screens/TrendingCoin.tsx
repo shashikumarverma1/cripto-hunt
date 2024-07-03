@@ -15,14 +15,30 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { CoinCard } from "../components/coinCard";
 import { WatchlistInfo } from "../context/watchlistData";
+import { LoadingScreen } from "./LoadingScreen";
 const windowWidth = Dimensions.get("window").width;
 
-export const Watchlisted = () => {
+export const TrendingCoin = () => {
+    const [coins ,setCoins]=useState([])
+ 
   const windowWidth = Dimensions.get("window").width;
-  const { watchlist, setWatchlist } = useContext(WatchlistInfo);
+  const fetchCoins = async () => {
+    // setLoading(true);
+    let url= `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${"usd"}&order=gecko_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h`;
+
+    const res = await axios.get(url)
+
+    console.log(res.data[0].id);
+
+    setCoins(res.data);
+    // setLoading(false);
+  };
+  useEffect(()=>{
+    fetchCoins()
+  },[])
   return (
     <View style={{marginTop:40}}>
-      <Text style={styles.heading}>WATCHLIST</Text>
+         <Text style={styles.heading}>TRENDING COINS</Text>
    <View style={styles.center }>
    <View style={[styles.cardShadow, {display:'flex' , flexDirection:"row"} ]}>
     <View style={styles.leftSection}>
@@ -36,7 +52,10 @@ export const Watchlisted = () => {
    </View>
     </View>
     <ScrollView>
-<CoinCard data={watchlist}/>
+
+{
+    coins.length ==0 ? <LoadingScreen/> :
+    <CoinCard data={coins}/>}
 </ScrollView>
    </View>
   );
@@ -47,9 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-  },
-  heading: {
-    textAlign:"center" , fontSize:17 , fontWeight:"500" , marginTop:20 , marginBottom:8 
   },
   cardShadow:{
     backgroundColor: "#fff",
@@ -92,5 +108,8 @@ const styles = StyleSheet.create({
  },
 text:{
   color:"grey",fontSize:15, fontWeight:"500", marginBottom:5 , marginTop:5 ,textAlign:"center"
-}
+},
+heading: {
+    textAlign:"center" , fontSize:17 , fontWeight:"600" , marginTop:20 ,marginBottom:10
+  },
 });

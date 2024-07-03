@@ -5,6 +5,7 @@ import Pay from '../screens/paymentScreen';
 import { Notification } from '../screens/notification';
 import { AllCoins } from '../screens/AllCoins';
 import { Watchlisted } from '../screens/Watchlist';
+import { TrendingCoin } from '../screens/TrendingCoin';
 
 
 
@@ -13,14 +14,16 @@ const Stack = createStackNavigator();
 function RootStack() {
   return (
     <Stack.Navigator screenOptions={{ animationEnabled: false, headerShown: false }}>
-       <Stack.Screen name="Home" component={AllCoins} />
+       <Stack.Screen name="Home" component={Dashboard} />
        <Stack.Screen name="Pay" component={Pay} />
        <Stack.Screen name="Notification" component={Notification} />
        {/*  */}
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Profile" component={Profile} />
-
+      <Stack.Screen name="TrendingCoin" component={TrendingCoin} />
+      <Stack.Screen name="AllCoins" component={AllCoins} />
+      <Stack.Screen name="Watchlisted" component={Watchlisted} />
       
 
       

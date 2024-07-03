@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  Alert,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -27,7 +28,7 @@ return watchlist?.filter((el)=>el.id==e.id)
   }
   useEffect(()=>{} ,[watchlist?.length])
   return (
-    <ScrollView style={{marginBottom:80}}>
+    <ScrollView style={{}}>
       {data?.data?.map((e, index) => {
         return (
           <View style={styles.center} key={index}>
@@ -86,9 +87,27 @@ return watchlist?.filter((el)=>el.id==e.id)
                         if(isWatchlisted?.length !== 0){
                            let ans=   watchlist.filter((el)=>el.id !=e.id)
                            setWatchlist(ans)
+                           Alert.alert('Alert', 'Removed from watchlist', [
+                            {
+                              text: 'Cancel',
+                              onPress: () => console.log('Cancel Pressed'),
+                              style: 'cancel',
+                            },
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                          ]);
+                         
                         }else{
                           let arr=[...watchlist , e]
                           setWatchlist(arr)
+                          Alert.alert('Alert', 'Added to watchlist', [
+                            {
+                              text: 'Cancel',
+                              onPress: () => console.log('Cancel Pressed'),
+                              style: 'cancel',
+                            },
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                          ]);
+                          
                         }
                        
                       }}>

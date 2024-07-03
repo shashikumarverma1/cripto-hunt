@@ -14,6 +14,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { CoinCard } from "../components/coinCard";
+import { LoadingScreen } from "./LoadingScreen";
 const windowWidth = Dimensions.get("window").width;
 
 export const AllCoins = () => {
@@ -46,6 +47,7 @@ export const AllCoins = () => {
 
   return (
     <View style={{marginTop:40}}>
+      <Text style={styles.heading}>All Coin</Text>
    <View style={styles.center }>
    <View style={[styles.cardShadow, {display:'flex' , flexDirection:"row"} ]}>
     <View style={styles.leftSection}>
@@ -59,7 +61,8 @@ export const AllCoins = () => {
    </View>
     </View>
     <ScrollView>
-<CoinCard data={coins}/>
+    {coins?.length == 0 ?  <LoadingScreen/>  :
+<CoinCard data={coins}/>}
 </ScrollView>
    </View>
   );
@@ -70,6 +73,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
+  },
+  heading: {
+    textAlign:"center" , fontSize:17 , fontWeight:"500" , marginTop:15 ,marginBottom:10
   },
   cardShadow:{
     backgroundColor: "#fff",
