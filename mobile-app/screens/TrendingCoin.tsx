@@ -28,7 +28,6 @@ export const TrendingCoin = () => {
 
     const res = await axios.get(url)
 
-    console.log(res.data[0].id);
 
     setCoins(res.data);
     // setLoading(false);

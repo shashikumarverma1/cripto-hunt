@@ -15,6 +15,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { CoinCard } from "../components/coinCard";
 import { LoadingScreen } from "./LoadingScreen";
+import { CoinList } from "../utils/apis";
 const windowWidth = Dimensions.get("window").width;
 
 export const AllCoins = () => {
@@ -29,11 +30,8 @@ export const AllCoins = () => {
   // import { CoinList } from "../utils/apis";
   const fetchCoins = async () => {
     // setLoading(true);
-    const res = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${"INR"}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
-    );
-    console.log(res.data);
-    console.log(res.data[0]);
+    const res = await axios.get(CoinList("USD"));
+ 
     // name
 
     setCoins(res.data);

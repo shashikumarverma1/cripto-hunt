@@ -21,7 +21,6 @@ export const Dashboard = ({ navigation }) => {
 
     const res = await axios.get(url)
 
-    console.log(res.data[0].id);
 
     setCoins(res.data);
     // setLoading(false);
@@ -30,14 +29,12 @@ export const Dashboard = ({ navigation }) => {
     const res = await axios.get(
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${"INR"}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
     );
-    console.log(res.data);
-    console.log(res.data[0]);
-    // name
+ 
 
     setAllCoins(res.data);
     // setLoading(false);
   }
-console.log(coins.length , "coins")
+
   useEffect(() => {
     fetchCoins();
     GetAllCoin()

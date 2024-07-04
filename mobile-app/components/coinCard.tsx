@@ -22,7 +22,7 @@ export const CoinCard = (data) => {
 
   const windowWidth = Dimensions.get("window").width;
   const { watchlist, setWatchlist } = useContext(WatchlistInfo);
-  console.log(watchlist , "wwwwwwwwwww");
+  
   const IsWatchlisted=(e)=>{
 return watchlist?.filter((el)=>el.id==e.id)
   }
@@ -32,7 +32,7 @@ return watchlist?.filter((el)=>el.id==e.id)
       {data?.data?.map((e, index) => {
         return (
           <View style={styles.center} key={index}>
-            <Pressable>
+            <Pressable onPress={()=>navigation.navigate("CoinDetails" , {data:e})}>
               <View style={styles.cardShadow}>
                 <View
                   style={{
@@ -83,7 +83,7 @@ return watchlist?.filter((el)=>el.id==e.id)
                     <View style={styles.sectionWidth}>
                       <Pressable onPress={()=>{
                        let isWatchlisted= IsWatchlisted(e)
-                       console.log(isWatchlisted , "isWatchlisted")
+                    
                         if(isWatchlisted?.length !== 0){
                            let ans=   watchlist.filter((el)=>el.id !=e.id)
                            setWatchlist(ans)

@@ -64,7 +64,7 @@ const CustomSidebarMenu = ({ navigation }: { navigation: any }) => {
         >
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Text style={styles.icon}>
-              <Ionicons name="person-circle" size={20} color="black" />
+              <Ionicons name="basket" size={20} color="black" />
             </Text>
             <Text style={styles.heading}>All coins</Text>
           </View>
@@ -77,7 +77,7 @@ const CustomSidebarMenu = ({ navigation }: { navigation: any }) => {
         >
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Text style={styles.icon}>
-              <Ionicons name="person-circle" size={20} color="black" />
+              <Ionicons name="star" size={20} color="black" />
             </Text>
             <Text style={styles.heading}>Watch list</Text>
           </View>
@@ -91,7 +91,8 @@ const CustomSidebarMenu = ({ navigation }: { navigation: any }) => {
         >
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Text style={styles.icon}>
-              <Ionicons name="person-circle" size={20} color="black" />
+              <Ionicons name="analytics" size={22} color="black" />
+           
             </Text>
             <Text style={styles.heading}>Trending Coin</Text>
           </View>

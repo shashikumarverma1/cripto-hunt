@@ -6,6 +6,8 @@ import { Notification } from '../screens/notification';
 import { AllCoins } from '../screens/AllCoins';
 import { Watchlisted } from '../screens/Watchlist';
 import { TrendingCoin } from '../screens/TrendingCoin';
+import { CoinDetails } from '../screens/CoinDetails';
+import { LineCharts } from '../components/LineChart';
 
 
 
@@ -14,6 +16,7 @@ const Stack = createStackNavigator();
 function RootStack() {
   return (
     <Stack.Navigator screenOptions={{ animationEnabled: false, headerShown: false }}>
+   
        <Stack.Screen name="Home" component={Dashboard} />
        <Stack.Screen name="Pay" component={Pay} />
        <Stack.Screen name="Notification" component={Notification} />
@@ -24,6 +27,8 @@ function RootStack() {
       <Stack.Screen name="TrendingCoin" component={TrendingCoin} />
       <Stack.Screen name="AllCoins" component={AllCoins} />
       <Stack.Screen name="Watchlisted" component={Watchlisted} />
+      <Stack.Screen name="CoinDetails" component={CoinDetails} />
+      
       
 
       
