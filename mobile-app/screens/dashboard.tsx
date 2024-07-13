@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   heading: {
-    textAlign:"center" , fontSize:17 , fontWeight:"500" 
+    textAlign:"center" , fontSize:17 , fontWeight:"600" 
   },
   SubHeading:{
    fontSize:16 , fontWeight:"500" 
